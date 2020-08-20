@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>pet-api</artifactId>
+
+    <parent>
+        <groupId>me.schnaidt.showcase</groupId>
+        <artifactId>pet-server</artifactId>
+        <version>1.0.0</version>
+    </parent>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.openapitools/openapi-generator-maven-plugin -->
+        <dependency>
+            <groupId>org.openapitools</groupId>
+            <artifactId>openapi-generator-maven-plugin</artifactId>
+            <version>4.2.1</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openapitools</groupId>
+            <artifactId>jackson-databind-nullable</artifactId>
+            <version>0.1.0</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+            <groupId>org.openapitools</groupId>
+            <artifactId>openapi-generator-maven-plugin</artifactId>
+          <!--  <version>${openapi-generator-maven-plugin.version}</version> -->
+            <executions>
+            <execution>
+                <id>file-download-api</id>
+                <goals>
+                    <goal>generate</goal>
+                </goals>
+                <configuration>
+                    <inputSpec>
+                        ${project.basedir}/src/main/resources/openapi/petstore.yaml
+                    </inputSpec>
+                    <generatorName>spring</generatorName>
+                    <library>spring-boot</library>
+                    <configOptions>
+                        <dateLibrary>java8</dateLibrary>
+                        <interfaceOnly>true</interfaceOnly>
+                        <useBeanValidation>true</useBeanValidation>
+                        <useTags>true</useTags>
+                        <skipDefaultInterface>true</skipDefaultInterface>
+                    </configOptions>
+                    <apiPackage>me.schnaidt.showcase.api</apiPackage>
+                    <modelPackage>me.schnaidt.showcase.api.model</modelPackage>
+                    <skipValidateSpec>false</skipValidateSpec>
+                    <ignoreFileOverride>true</ignoreFileOverride>
+                    <skipOverwrite>false</skipOverwrite>
+                    <generateSupportingFiles>false</generateSupportingFiles>
+                    <serializationLibrary>jackson</serializationLibrary>
+                    <templateDirectory>${project.basedir}/src/main/resources/openapi/templates</templateDirectory>
+
+
+                    <!-- Der Generator nutzt OffsetDateTime, original Implementierung ist ohne Zonen-Info (LocalDateTime) -->
+
+
+                </configuration>
+            </execution>
+            </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
