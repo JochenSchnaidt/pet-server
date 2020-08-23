@@ -8,16 +8,14 @@ spring:
   application.name: pet-server
   profiles.active: default
 
-#  cloud.config:
-#    discovery:
-#      enabled: false
-#      service-id: configserver
-
-    #uri: http://localhost:8090
-#    label: development
-#    username: root
-#    password: s3cr3t
-#    fail-fast: true
+  cloud.config:
+    discovery:
+      enabled: true
+      service-id: config-server
+    label: development
+    username: root
+    password: s3cr3t
+    fail-fast: true
 
 eureka:
   client:
